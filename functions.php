@@ -2,6 +2,7 @@
 add_action( 'wp_enqueue_scripts', 'theme_enqueue_styles' );// Enregistrement du style du thème parent
 function theme_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );// Chargement du style du thème parent 'parent-style'
+   
 }
 
 //Récupération des options de personnalisation du thème parent
@@ -18,3 +19,10 @@ if ( get_stylesheet() !== get_template() ) {
         return get_option( 'theme_mods_' . get_template(), $default );
     } );
 }
+
+//Ajout du fichier main.js
+function enqueue_js_script() {
+    wp_enqueue_script('js-script', get_stylesheet_directory_uri() . '/main.js', array('jquery'), '1.0', true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_js_script');
+
